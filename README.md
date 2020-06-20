@@ -1,15 +1,28 @@
 # DevDesk-Backend
 
+---
+
 #### Auth
+
+---
+
+| Method | Endpoint                 | Information   |
+| ------ | ------------------------ | ------------- |
+| POST   | `/api/auth/register`     | Registration  |
+| POST   | `/api/auth/login`        | Login         |
+
+---
+
+#### Users
 
 ---
 
 | Method | Endpoint                 | Information                                                  |
 | ------ | ------------------------ | ------------------------------------------------------------ |
-| POST   | `/api/register`          | Registration                                                 |
-| POST   | `/api/login`             | Login                                                        |
-| GET    | `/api/users/:id`         | Returns user by ID                                           |
+| GET    | `/api/users/:id`         | Returns user by id                                           |
 | GET    | `/api/users/:id/tickets` | Returns assigned tickets if helper or created tickets if not |
+
+---
 
 #### Tickets
 
@@ -22,6 +35,8 @@
 | POST   | `/api/tickets/`                   | Create a new ticket                           |
 | PUT    | `/api/tickets/:id`                | Udates ticket with id                         |
 | DELETE | `/api/tickets/:id`                | Deletes ticket with id                        |
+
+---
 
 
 #### User Object
