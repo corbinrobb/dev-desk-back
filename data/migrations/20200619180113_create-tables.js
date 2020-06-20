@@ -16,9 +16,7 @@ exports.up = function(knex) {
       tbl.string('category', 128);
       tbl.integer('assigned_to')
         .unsigned()
-        .defaultTo(0)
-        .references('id')
-        .inTable('users');
+        .defaultTo(0);
       tbl.boolean('resolved').defaultTo(false);
       tbl.timestamp('created_at').defaultTo(knex.fn.now());
       tbl.integer('created_by')

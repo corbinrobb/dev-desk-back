@@ -6,7 +6,7 @@ const generateToken = require('./generateToken.js');
 router.post('/register', async (req, res) => {
   const { username, password, email, is_helper } = req.body;
 
-  const hash = bcryptjs.hashSync(password, process.env.HASH_ROUNDS || 8);
+  const hash = await bcryptjs.hashSync(password, process.env.HASH_ROUNDS || 8);
 
   try {
     const user = await Users.add({ username, password: hash, email, is_helper });
@@ -24,6 +24,8 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await Users.getBy({ username });
+    if(!user) return res.status(404).json({ error: 'Could not find a user with that username' });
+
     if (user && bcryptjs.compareSync(password, user.password)) {
       const token = generateToken(user);
       res.status(200).json({ id: user.id, username, token });
@@ -32,7 +34,7 @@ router.post('/login', async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Could not find user in database" });
+    res.status(500).json({ message: "Could not retrieve user from database" });
   }
 });
 
