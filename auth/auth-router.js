@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: 'Could not add user to database' });
+    res.status(500).json({ error: 'Could not add user to database', err });
   }
 });
 
