@@ -6,9 +6,8 @@
 
 | Method | Endpoint                 | Information                                                  |
 | ------ | ------------------------ | ------------------------------------------------------------ |
-| POST   | `/api/register`          | User Registration                                            |
-| POST   | `/api/login`             | User Login                                                   |
-| GET    | `/api/users`             | Returns all users                                            |
+| POST   | `/api/register`          | Registration                                                 |
+| POST   | `/api/login`             | Login                                                        |
 | GET    | `/api/users/:id`         | Returns user by ID                                           |
 | GET    | `/api/users/:id/tickets` | Returns assigned tickets if helper or created tickets if not |
 
@@ -25,8 +24,7 @@
 | DELETE | `/api/tickets/:id`                | Deletes ticket with id                        |
 
 
-
-#### Users
+#### User Object
 
 ---
 
@@ -40,7 +38,7 @@
 }
 ```
 
-#### Tickets
+#### Ticket Objects
 
 ---
 
@@ -52,7 +50,7 @@
   category: STRING; // not required
   resolved: BOOLEAN; // defaults to false
   assigned_to: INTEGER; // defaults to 0 
-  created_at: TIMESTAMP; // The 
-  created_by: INTEGER; // references user id - the users id that created this ticket!
+  created_at: TIMESTAMP; // added by database
+  created_by: INTEGER; // required - id of user that created ticket
 }
 ```
