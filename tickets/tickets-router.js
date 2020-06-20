@@ -1,5 +1,3 @@
-const { restart } = require('nodemon');
-
 const router = require('express').Router();
 const Tickets = require('./tickets-model.js');
 
