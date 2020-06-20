@@ -7,10 +7,10 @@ router.post('/register', async (req, res) => {
   try {
     const { username, password, email, is_helper } = req.body;
 
-    const hash = await bcryptjs.hashSync(password, process.env.HASH_ROUNDS || 8);
+    const hash = bcryptjs.hashSync(password, process.env.HASH_ROUNDS || 8);
 
-    const user = await Users.add({ username, password: hash, email, is_helper });
-    res.status(201).json({ id: user.is, username: user.username, email: user.email, is_helper: user.is_helper });
+    await Users.add({ username, password: hash, email, is_helper });
+    res.status(201).json({ message: "Successfully registered user" });
   } catch (err) {
     res.status(500).json({ error: 'Could not add user to database', err });
   }
