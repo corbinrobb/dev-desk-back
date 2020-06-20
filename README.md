@@ -45,11 +45,11 @@
 
 ```js
 {
-  id: INTEGER; // added by database
-  username: STRING; // required , unique - 128 max chars
-  password: STRING; // required - 128 max chars
-  email: STRING; // not required
-  is_helper: BOOLEAN; // defaults to false if not specified
+  id: INTEGER, // added by database
+  username: STRING, // required , unique - 128 max chars
+  password: STRING, // required - 128 max chars
+  email: STRING, // not required
+  is_helper: BOOLEAN // defaults to false if not specified
 }
 ```
 
@@ -59,13 +59,14 @@
 
 ```js
 {
-  id: INTEGER; // added by database
-  title: STRING; // required
-  description: TEXT; // required
-  category: STRING; // not required
-  resolved: BOOLEAN; // defaults to false
-  assigned_to: INTEGER; // defaults to 0 
-  created_at: TIMESTAMP; // added by database
-  created_by: INTEGER; // required - id of user that created ticket
+  id: INTEGER, // added by database
+  title: STRING, // required 
+  tried: STRING, // required - what the user has tried already
+  description: TEXT, // required - description of what needs help
+  category: STRING, // not required
+  resolved: BOOLEAN, // defaults to false
+  assigned_to: INTEGER, // defaults to 0 - id of helper
+  created_at: TIMESTAMP, // added by database
+  created_by: INTEGER // required - id of user that created ticket
 }
 ```
