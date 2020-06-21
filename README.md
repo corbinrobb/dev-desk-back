@@ -61,12 +61,12 @@
 {
   id: INTEGER, // added by database
   title: STRING, // required 
-  tried: STRING, // required - what the user has tried already
   description: TEXT, // required - description of what needs help
+  tried: STRING, // required - what the user has tried already
   category: STRING, // not required
   resolved: BOOLEAN, // defaults to false
   assigned_to: INTEGER, // defaults to 0 - id of helper
   created_at: TIMESTAMP, // added by database
-  created_by: INTEGER // required - id of user that created ticket
+  created_by: INTEGER // not required - gets read from the token of the user
 }
 ```

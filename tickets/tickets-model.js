@@ -9,8 +9,8 @@ const getBy = async (filter) => {
 }
 
 const add = async (ticket) => {
-  const [ id ] = await db('tickets').insert(ticket, "id");
-  return await getBy({ id });
+  await db('tickets').insert(ticket, "id");
+  return await get();
 }
 
 const update = async (id, ticket) => {
@@ -19,7 +19,7 @@ const update = async (id, ticket) => {
 }
 
 const remove = async (id) => {
-  const ticket = await db('tickets').where({id});
+  const ticket = await db('tickets').where({ id });
   await db('tickets').where({ id }).del();
   return ticket;
 }

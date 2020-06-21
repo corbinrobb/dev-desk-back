@@ -1,5 +1,36 @@
 const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets.js');
+const Users = require('../users/users-models.js');
+const Tickets = require('../tickets/tickets-model.js');
+
+const validateUserExists = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const user = await Users.getBy({ id });
+    
+    if(!user) return res.status(404).json({ error: "Couldnt find user with that id" });
+    req.user = user;
+
+    next();
+  } catch(err) {
+    res.status(500).json({ error: "Couldn't retrieve user from database" })
+  }
+}
+
+
+const validateTicketExists = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const ticket = await Tickets.getBy({ id });
+
+    if (!ticket) return res.status(404).json({ error: "Couldnt find ticket with that id" });
+    req.ticket = ticket;
+
+    next();
+  } catch (err) {
+    res.status(500).json({ error: "Couldn't retrieve ticket from database" })
+  }
+}
 
 const validateUserBody = (req, res, next) => {
   const { username, password } = req.body;
@@ -11,10 +42,10 @@ const validateUserBody = (req, res, next) => {
 }
 
 const validateTicketBody = (req, res, next) => {
-  const { title, description, tried, created_by } = req.body;
+  const { title, description, tried } = req.body;
 
-  if (!title || !description || !tried || !created_by) {
-    return res.status(400).json({ error: 'Provide title, description, tried, and created_by' });
+  if (!title || !description || !tried ) {
+    return res.status(400).json({ error: 'Provide title, description, and tried' });
   }
   next();
 }
@@ -34,6 +65,8 @@ const authenticateUser = (req, res, next) => {
 }
 
 module.exports = {
+  validateUserExists,
+  validateTicketExists,
   validateUserBody,
   validateTicketBody,
   authenticateUser

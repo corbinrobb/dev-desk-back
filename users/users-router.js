@@ -1,27 +1,21 @@
 const router = require('express').Router();
 const Users = require('./users-models.js');
+const { validateUserExists } = require('../middleware');
 
-router.get('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { username, is_helper, email } = await Users.getBy({id});
+router.get('/:id', validateUserExists, async (req, res) => {
+  const { id, username, is_helper, email } = req.user;
 
-    res.status(200).json({ id, username, is_helper, email });
-  } catch(err) {
-    console.log(err);
-    res.status(500).json({ error: "Could not get user from database" });
-  }
+  res.status(200).json({ id, username, is_helper, email });
 })
 
-router.get('/:id/tickets', async (req, res) => {
+router.get('/:id/tickets', validateUserExists, async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await Users.getBy({id});
+    const user = req.user;
     if(user.is_helper) {
-      const tickets = await Users.getAssignedTickets(id);
+      const tickets = await Users.getAssignedTickets(user.id);
       res.status(200).json(tickets);
     } else {
-      const tickets = await Users.getUsersCreatedTickets(id);
+      const tickets = await Users.getUsersCreatedTickets(user.id);
       res.status(200).json(tickets);
     }
   } catch (err) {
