@@ -9,7 +9,8 @@ const getBy = async (filter) => {
 }
 
 const add = async (user) => {
-  return db('users').insert(user);
+  const [ id ] = await db('users').insert(user, "id");
+  return await getBy({ id });
 }
 
 const getUsersCreatedTickets = async (userId) => {

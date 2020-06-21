@@ -9,7 +9,7 @@ const getBy = async (filter) => {
 }
 
 const add = async (ticket) => {
-  const [id] = await db('tickets').insert(ticket);
+  const [ id ] = await db('tickets').insert(ticket, "id");
   return await getBy({ id });
 }
 
